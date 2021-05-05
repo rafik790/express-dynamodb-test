@@ -1,0 +1,7 @@
+{
+    "accessKeyId": "myapp_accessKeyId",
+    "secretAccessKey": "myapp_secretAccessKey",
+    "region": "myapp_region",
+    "userPoolId":"myapp_userPoolId",
+    "userPoolRegion":"myapp_userPoolRegion"
+}
