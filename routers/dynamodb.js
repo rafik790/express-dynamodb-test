@@ -1,12 +1,20 @@
 const Joi = require('joi');
-const AWS = require('aws-sdk');
-const configDB = require('../db/dbconfig');
 const express = require('express');
 const router = express.Router();
 let uniqid = require('uniqid');
+
+const configDB = require('../db/dbconfig');
+const AWS = require('aws-sdk');
 AWS.config.update(configDB.aws_remote_config);
+
 const docClient = new AWS.DynamoDB.DocumentClient();
 const tableName='products-table-dev';
+const headers= {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true,
+};
+
+
 router.get('/', async (req, res) => {
     const params = {
         TableName: tableName,
@@ -18,12 +26,12 @@ router.get('/', async (req, res) => {
 
         if (err) {
             console.log(err);
-            res.send({
+            res.header(headers).send({
                 success: false,
                 message: err
             });
         }
-        res.json(data);
+        res.header(headers).json(data);
     
     });
 
@@ -48,10 +56,10 @@ router.post('/',function (req, res) {
     docClient.put(params, (error,data) => {
       if (error) {
         console.log(error);
-        res.status(400).json({ error: 'Could not create product' });
+        res.header(headers).status(400).json({ error: 'Could not create product' });
       }
 
-      res.json({ id, product_name,product_price });
+      res.header(headers).json({ id, product_name,product_price });
     });
 });
 

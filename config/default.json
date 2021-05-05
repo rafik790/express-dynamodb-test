@@ -1,3 +1,9 @@
 {
-    "name":"DynamoDB"
+    "name":"DynamoDB",
+    "accessKeyId": "AKIAWMDQHOHFGM3TPO4Y",
+    "secretAccessKey": "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",
+    "region": "us-east-2",
+    "userPoolId":"us-east-2_XRUS217lY",
+    "userPoolRegion":"us-east-2",
+    "IS_OFFLINE":false
 }
