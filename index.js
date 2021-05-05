@@ -5,6 +5,9 @@ const dynamodbRouter = require('./routers/dynamodb');
 const app = express();
 app.use(express.json());
 
+app.get('/',function (req, res) {
+    res.send('Hello World!');
+});
 
 app.get('/hello',function (req, res) {
     console.log("Hello World");
