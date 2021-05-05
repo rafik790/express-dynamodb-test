@@ -1,7 +1,7 @@
 {
     "name":"DynamoDB",
     "IS_OFFLINE":false,
-    "accessKeyId": "AKIAMDQHOHFGM3TPO4Y",
+    "accessKeyId": "",
     "secretAccessKey": "",
     "region": "",
     "userPoolId":"",
