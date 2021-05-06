@@ -5,17 +5,20 @@ const secretAccessKey = config.get("secretAccessKey");
 const region = config.get("region");
 const IS_OFFLINE = config.get("IS_OFFLINE");
 if (!accessKeyId || !secretAccessKey || !region) {
+    
     throw new Error('Environment varibales are missing');
 }
+console.log("accessKeyId::"+accessKeyId);
+console.log("secretAccessKey::"+secretAccessKey);
+console.log("region::"+region);
+console.log("IS_OFFLINE::"+IS_OFFLINE);
 
 AWS.config.update({
     accessKeyId: accessKeyId,
-    secretAccessKey: accessKeyId,
+    secretAccessKey: secretAccessKey,
     region: region
  }
 );
-
-
 
 let docClient;
 if (IS_OFFLINE) {
@@ -27,4 +30,5 @@ if (IS_OFFLINE) {
     docClient = new AWS.DynamoDB.DocumentClient();
 }
 
+//let docClient = new AWS.DynamoDB.DocumentClient();
 module.exports.docClient=docClient

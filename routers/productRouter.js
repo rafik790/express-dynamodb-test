@@ -90,7 +90,7 @@ router.post('/',authorization, function (req, res) {
         product_price:product_price
       },
     };
-  
+    
     docClient.put(params, (error,data) => {
       if (error) {
         console.log(error);
@@ -98,6 +98,7 @@ router.post('/',authorization, function (req, res) {
       }
       res.header(headers).json({ id, product_name,product_price });
     });
+    
 })
 
 
