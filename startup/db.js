@@ -9,9 +9,9 @@ if (!accessKeyId || !secretAccessKey || !region) {
 }
 
 AWS.config.update({
-    accessKeyId: 'AKIAWMDQHOHFGM3TPO4Y',
-    secretAccessKey: '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',
-    region: 'us-east-2'
+    accessKeyId: accessKeyId,
+    secretAccessKey: accessKeyId,
+    region: region
  }
 );
 
