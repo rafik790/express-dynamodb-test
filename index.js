@@ -17,8 +17,6 @@ app.get('/hello',function (req, res) {
     res.send('Hello World!');
 });
 
-
-
 //app.use('/api/products',productRouter);
 
 const port = process.env.PORT || 3000;
