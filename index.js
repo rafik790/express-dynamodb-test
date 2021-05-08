@@ -1,6 +1,6 @@
 const config = require('config');
 const express = require('express');
-const productRouter = require('./routers/productRouter');
+//const productRouter = require('./routers/productRouter');
 var cors = require('cors')
 
 const app = express();
@@ -17,6 +17,7 @@ app.get('/hello',function (req, res) {
     res.send('Hello World!');
 });
 
-app.use('/api/products',productRouter);
+//app.use('/api/products',productRouter);
+
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{console.log(`Listening on port ${port}`);});
