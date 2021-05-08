@@ -20,6 +20,7 @@ AWS.config.update({
 );
 */
 
+let IS_OFFLINE=false
 let docClient;
 if (IS_OFFLINE) {
     docClient = new AWS.DynamoDB.DocumentClient({
