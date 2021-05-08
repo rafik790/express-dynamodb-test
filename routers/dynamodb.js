@@ -22,18 +22,14 @@ router.get('/', async (req, res) => {
         ScanIndexForward: true
     };
 
-    docClient.scan(params, function (err, data) {
 
-        if (err) {
-            console.log(err);
-            res.header(headers).send({
-                success: false,
-                message: err
-            });
-        }
-        res.header(headers).json(data);
-    
-    });
+    try{
+      let result = await docClient.scan(params);
+      res.header(headers).json(result);
+    }catch(ex){
+      console.log(err);
+      res.header(headers).status(500).send({success: false,message: err});
+    }
 
 });
 

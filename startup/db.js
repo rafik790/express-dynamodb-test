@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk');
 const config = require('config');
+
+/*
 const accessKeyId = config.get("accessKeyId");
 const secretAccessKey = config.get("secretAccessKey");
 const region = config.get("region");
@@ -16,6 +18,7 @@ AWS.config.update({
     region: region
  }
 );
+*/
 
 let docClient;
 if (IS_OFFLINE) {
@@ -26,6 +29,4 @@ if (IS_OFFLINE) {
 }else{
     docClient = new AWS.DynamoDB.DocumentClient();
 }
-
-//let docClient = new AWS.DynamoDB.DocumentClient();
 module.exports.docClient=docClient

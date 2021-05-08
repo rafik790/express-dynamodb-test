@@ -12,7 +12,25 @@ const headers= {
 };
 
 // Get all products endpoint
+router.get('/', async (req, res)=> {
+  const params = {
+    TableName: DB_TABLE
+  }
+  
+  docClient.scan(params, (error, data) => {
+    if (error) {
+      return res.header(headers).status(error.statusCode).json({ error: error.message });
+    }
+
+    return res.header(headers).json(data);
+  });
+
+
+});
+
+// Get all products endpoint
 router.post('/filter',authorization, function (req, res) {
+
   const {pagesize,startKey} = req.body;
   const params = {
     TableName: DB_TABLE,
@@ -27,25 +45,9 @@ router.post('/filter',authorization, function (req, res) {
 
   docClient.scan(params, (error, data) => {
     if (error) {
-      console.log(error);
-      res.header(headers).status(400).json({ error: 'Encounter some problem.' });
+      return res.header(headers).status(error.statusCode).json({ error: error.message });
     }
 
-    res.header(headers).json(data);
-  });
-})
-
-// Get all products endpoint
-router.get('/', authorization,function (req, res) {
-  const params = {
-    TableName: DB_TABLE
-  }
-
-  docClient.scan(params, (error, data) => {
-    if (error) {
-      console.log(error);
-      res.header(headers).status(400).json({ error: 'Encounter some problem.' });
-    }
     res.header(headers).json(data);
   });
 })
@@ -61,17 +63,17 @@ router.get('/:id',authorization, function (req, res) {
   
     docClient.get(params, (error, result) => {
       if (error) {
-        console.log(error);
-        res.header(headers).status(400).json({ error: 'Could not get product' });
+        return res.header(headers).status(error.statusCode).json({ error: error.message });
       }
 
-      if (result.Item) {
-        const {id, product_name, product_price} = result.Item;
-        res.header(headers).json({ id, product_name,product_price });
-      } else {
-        res.header(headers).status(404).json({ error: "Product not found" });
+      if (!result.Item) {
+        return res.header(headers).status(404).json({ error: "Product not found" });
       }
+
+      const {id, product_name, product_price} = result.Item;
+      return res.header(headers).json({ id, product_name,product_price });
     });
+
 })
 
 // Create endpoint
@@ -93,8 +95,7 @@ router.post('/',authorization, function (req, res) {
     
     docClient.put(params, (error,data) => {
       if (error) {
-        console.log(error);
-        res.header(headers).status(400).json({ error: 'Could not create product' });
+        return res.header(headers).status(error.statusCode).json({ error: error.message });
       }
       res.header(headers).json({ id, product_name,product_price });
     });
@@ -125,8 +126,7 @@ router.put('/:id',authorization, async function (req, res) {
  
   docClient.update(params, (error,data) => {
     if (error) {
-      console.log(error);
-      res.header(headers).status(400).json({ error });
+      return res.header(headers).status(error.statusCode).json({ error: error.message });
     }
 
     res.header(headers).json(data.Attributes);
@@ -144,8 +144,7 @@ router.delete('/:id',authorization, function (req, res) {
 
   docClient.delete(params, (error,data) => {
     if (error) {
-      console.log(error);
-      res.header(headers).status(400).json({ error });
+      return res.header(headers).status(error.statusCode).json({ error: error.message });
     }
     res.header(headers).json(data);
     //res.send(data);

@@ -18,6 +18,5 @@ app.get('/hello',function (req, res) {
 });
 
 app.use('/api/products',productRouter);
-
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{console.log(`Listening on port ${port}`);});
